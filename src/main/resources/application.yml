@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/springbootlearn?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 驼峰命名规则
+
+logging:
+  level:
+    com:
+      xiaoxin:
+        springbootlearn:
+          cache:
+            mapper: debug
