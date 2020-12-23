@@ -10,7 +10,6 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @MapperScan("com.xiaoxin.springbootlearn.cache.mapper")
 @SpringBootApplication
-@EnableCaching
 public class SpringbootLearnApplication {
 
     public static void main(String[] args) {
