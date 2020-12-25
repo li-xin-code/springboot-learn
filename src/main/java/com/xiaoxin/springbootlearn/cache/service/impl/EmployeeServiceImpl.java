@@ -20,7 +20,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     @Cacheable(cacheNames = "emp",
-            keyGenerator = "empKeyGenerator",
+//            keyGenerator = "empKeyGenerator",
             condition = "#id > 0 and #a0 <100",
             unless = "#root.args[0] == 3")
     public Employee getEmpById(Integer id) {

@@ -1,5 +1,6 @@
 package com.xiaoxin.springbootlearn.cache.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -30,7 +31,7 @@ public class CacheConfig {
     }
 
     @Bean
-    public CacheManager cacheManager(RedisConnectionFactory factory) {
+    public RedisCacheManager cacheManager(/*@Qualifier("jedisConnectionFactory")*/RedisConnectionFactory factory) {
         return RedisCacheManager.builder(factory)
                 .cacheDefaults(defaultCacheConfig(10000))
                 .withInitialCacheConfigurations(initCacheConfigMap())
@@ -53,9 +54,9 @@ public class CacheConfig {
 
     private Map<String, RedisCacheConfiguration> initCacheConfigMap() {
         Map<String, RedisCacheConfiguration> map = new HashMap<>(16);
-        map.put("emp",this.defaultCacheConfig(10000));
-        map.put("emp2",this.defaultCacheConfig(20000));
-        map.put("dep",this.defaultCacheConfig(20000));
+        map.put("emp",this.defaultCacheConfig(1000000));
+        map.put("emp2",this.defaultCacheConfig(2000000));
+        map.put("dep",this.defaultCacheConfig(2000000));
         return map;
     }
 }
