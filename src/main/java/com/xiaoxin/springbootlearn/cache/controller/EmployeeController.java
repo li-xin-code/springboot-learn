@@ -1,5 +1,6 @@
 package com.xiaoxin.springbootlearn.cache.controller;
 
+import com.xiaoxin.springbootlearn.cache.annotation.CurrentLimiting;
 import com.xiaoxin.springbootlearn.cache.entity.Employee;
 import com.xiaoxin.springbootlearn.cache.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class EmployeeController {
     private IEmployeeService employeeService;
 
     @GetMapping("/get/{id}")
+    @CurrentLimiting(maxCount = 3)
     public Employee get(@PathVariable("id") Integer id) {
         return employeeService.getEmpById(id);
     }

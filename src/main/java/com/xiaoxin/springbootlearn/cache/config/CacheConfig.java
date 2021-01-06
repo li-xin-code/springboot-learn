@@ -1,7 +1,5 @@
 package com.xiaoxin.springbootlearn.cache.config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -31,7 +29,7 @@ public class CacheConfig {
     }
 
     @Bean
-    public RedisCacheManager cacheManager(/*@Qualifier("jedisConnectionFactory")*/RedisConnectionFactory factory) {
+    public RedisCacheManager cacheManager(RedisConnectionFactory factory) {
         return RedisCacheManager.builder(factory)
                 .cacheDefaults(defaultCacheConfig(10000))
                 .withInitialCacheConfigurations(initCacheConfigMap())
@@ -40,7 +38,7 @@ public class CacheConfig {
     }
 
     private RedisCacheConfiguration defaultCacheConfig(Integer second) {
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer();
         return RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofSeconds(second))
                 .serializeKeysWith(RedisSerializationContext
@@ -59,4 +57,5 @@ public class CacheConfig {
         map.put("dep",this.defaultCacheConfig(2000000));
         return map;
     }
+
 }

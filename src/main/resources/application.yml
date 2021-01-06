@@ -1,24 +1,28 @@
 spring:
+  profiles:
+    active:
+      - dev
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
   datasource:
     url: jdbc:mysql://localhost:3306/springbootlearn?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: 192.168.1.2
-    port: 6379
+    #    host: 192.168.1.2
+    #    port: 6379
     password: 123456
-#    sentinel:
-#      master: lmaster
-#      nodes: 192.168.1.2:26379,192.168.1.2:26380,192.168.1.2:26381
-    timeout: 50000
-    lettuce:
-      pool:
-        max-active: 8
-        max-wait: -1s
-        max-idle: 8
-        min-idle: 1
+    sentinel:
+      master: mymaster
+      nodes: 192.168.0.100:26379,192.168.0.100:26380,192.168.0.100:26381
+    #    timeout: 50000
     database: 0
+  application:
+    name: cache-redis
 mybatis:
   configuration:
     map-underscore-to-camel-case: true # 驼峰命名规则

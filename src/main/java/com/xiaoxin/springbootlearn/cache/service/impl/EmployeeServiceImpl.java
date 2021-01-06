@@ -3,6 +3,7 @@ package com.xiaoxin.springbootlearn.cache.service.impl;
 import com.xiaoxin.springbootlearn.cache.entity.Employee;
 import com.xiaoxin.springbootlearn.cache.mapper.EmployeeMapper;
 import com.xiaoxin.springbootlearn.cache.service.IEmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
@@ -13,25 +14,25 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @CacheConfig(cacheNames = {"emp"})
+@Slf4j
 public class EmployeeServiceImpl implements IEmployeeService {
 
     @Autowired
     private EmployeeMapper employeeMapper;
 
     @Override
-    @Cacheable(cacheNames = "emp",
-//            keyGenerator = "empKeyGenerator",
+    @Cacheable(keyGenerator = "empKeyGenerator",
             condition = "#id > 0 and #a0 <100",
             unless = "#root.args[0] == 3")
     public Employee getEmpById(Integer id) {
-        System.out.println("get:" + id);
+        log.info("get:" + id);
         return employeeMapper.getEmpById(id.toString());
     }
 
     @Override
     @CachePut(key = "#employee.id")
     public Employee updateEmp(Employee employee) {
-        System.out.println("update" + employee);
+        log.info("update" + employee);
         employeeMapper.updateEmp(employee);
         return employee;
     }
@@ -39,7 +40,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     @CacheEvict(value = "emp", key = "#id")
     public void deleteEmpById(String id) {
-        System.out.println("delete: " + id);
+        log.info("delete: " + id);
 //        employeeMapper.deleteEmpById(id);
     }
 

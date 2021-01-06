@@ -1,5 +1,6 @@
 package com.xiaoxin.springbootlearn;
 
+import com.xiaoxin.springbootlearn.cache.Application;
 import com.xiaoxin.springbootlearn.cache.entity.Employee;
 import com.xiaoxin.springbootlearn.cache.mapper.EmployeeMapper;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @author lx
  * @date 2020/12/18
  */
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 public class EmployeeMapperTest {
 
     @Autowired
@@ -18,7 +19,7 @@ public class EmployeeMapperTest {
 
     @Test
     public void getEmpById(){
-        System.out.println(employeeMapper.getEmpById("1"));
+//        System.out.println(employeeMapper.getEmpById("1"));
     }
 
     @Test
@@ -30,7 +31,7 @@ public class EmployeeMapperTest {
     @Test
     public void insertEmp(){
         Employee employee = new Employee("1", "张三", "zhangsan@lx.com", 1, "1");
-        employeeMapper.insertEmp(employee);
+//        employeeMapper.insertEmp(employee);
     }
 
 }

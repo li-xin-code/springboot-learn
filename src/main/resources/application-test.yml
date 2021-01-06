@@ -1,0 +1,26 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:mysql:mysql//:3306/springbootlearn?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    password: 123456
+    sentinel:
+      master: mymaster
+      nodes: 192.168.0.100:26379,192.168.0.100:26380,192.168.0.100:26381
+    database: 0
+  application:
+    name: cache-redis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 椹煎嘲鍛藉悕瑙勫垯
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+    context-path: /
